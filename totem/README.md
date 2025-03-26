@@ -1,20 +1,22 @@
-# Sistema de Pedidos para Tablet
+# Sistema de Pedidos e Pagamentos
 
-Sistema desenvolvido para tablets (1024x1366) que permite aos clientes fazerem pedidos e pagamentos em estabelecimentos de alimentação.
+Sistema para gerenciamento de pedidos com suporte a pagamentos via PIX e cartão.
 
 ## Funcionalidades
 
-- Visualização do cardápio
-- Seleção de itens
-- Opções de pagamento:
-  - Cartão (Visa/Master)
-  - PIX
-- Gerenciamento de conta:
-  - Abrir conta
-  - Pedir item na conta
-  - Fechar conta
+- Cadastro de conta com ou sem número de telefone
 - Leitura de cartão/pulseira NFC
-- Feedback visual das operações
+- Seleção de produtos com opções personalizáveis
+- Pagamento via PIX ou cartão
+- Envio opcional do comprovante por celular
+
+## Tecnologias
+
+- HTML5
+- CSS3
+- JavaScript
+- API de Pagamentos
+- Leitor NFC
 
 ## Requisitos
 
