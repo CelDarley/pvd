@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema de Pedidos</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/thalamus.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Tela de Cardápio -->
+        <div id="cardapio" class="tela ativo">
+            <header>
+                <div class="header-botoes">
+                    <h1>Cardápio</h1>
+                    <div class="botoes-header">
+                        <button id="btn-abrir-conta-cardapio" class="acao-secundaria">Abrir Conta</button>
+                        <button id="btn-ver-conta" class="icone-compras">Ver Conta</button>
+                    </div>
+                </div>
+            </header>
+            <main>
+                <div class="grid-2" id="lista-produtos">
+                    <!-- Produtos serão inseridos via JavaScript -->
+                </div>
+            </main>
+        </div>
+
+        <!-- Tela de Visualização da Conta -->
+        <div id="visualizar-conta" class="tela">
+            <header>
+                <h1>Itens da Conta</h1>
+                <button id="btn-voltar-cardapio" class="icone-voltar">Voltar ao Cardápio</button>
+            </header>
+            <main>
+                <div class="bloco">
+                    <div id="itens-conta-visualizacao">
+                        <!-- Itens da conta serão inseridos via JavaScript -->
+                    </div>
+                    <div class="total">
+                        <h2>Total: R$ <span id="valor-total-visualizacao">0,00</span></h2>
+                        <button id="btn-pagar-conta">Pagar Conta</button>
+                    </div>
+                </div>
+            </main>
+        </div>
+
+        <!-- Tela de Opções -->
+        <div id="opcoes" class="tela">
+            <header>
+                <h1>Opções</h1>
+            </header>
+            <main>
+                <div class="grid-2">
+                    <a href="#" class="bloco" data-opcao="abrir-conta">
+                        <h2>Abrir Conta</h2>
+                    </a>
+                    <a href="#" class="bloco" data-opcao="pagar-agora">
+                        <h2>Pedir e Pagar</h2>
+                    </a>
+                    <a href="#" class="bloco" data-opcao="pedir-conta">
+                        <h2>Pedir Item na Conta</h2>
+                    </a>
+                    <a href="#" class="bloco" data-opcao="fechar-conta">
+                        <h2>Fechar Conta</h2>
+                    </a>
+                </div>
+            </main>
+        </div>
+
+        <!-- Tela de Pagamento -->
+        <div id="pagamento" class="tela">
+            <header>
+                <h1>Pagamento</h1>
+                <button id="btn-voltar-pagamento" class="icone-voltar">Voltar ao Cardápio</button>
+            </header>
+            <main>
+                <div class="grid-2">
+                    <a href="#" class="bloco" data-pagamento="cartao">
+                        <h2>Cartão</h2>
+                    </a>
+                    <a href="#" class="bloco" data-pagamento="pix">
+                        <h2>PIX</h2>
+                    </a>
+                </div>
+            </main>
+        </div>
+
+        <!-- Tela de Leitor de Cartão -->
+        <div id="leitor-cartao" class="tela">
+            <header>
+                <h1>Aproxime ou insira o cartão</h1>
+            </header>
+            <main>
+                <div class="loading">
+                    <div></div>
+                </div>
+            </main>
+        </div>
+
+        <!-- Tela de Confirmação do Cartão -->
+        <div id="confirmacao-cartao" class="tela">
+            <header>
+                <h1>Confirmação do Cartão</h1>
+            </header>
+            <main>
+                <div class="central">
+                    <div class="bloco">
+                        <div class="info-cartao">
+                            <div class="bandeira-cartao">
+                                <img id="bandeira-cartao" src="" alt="Bandeira do Cartão">
+                            </div>
+                            <div class="dados-cartao">
+                                <p>Cartão: <span id="numero-cartao">**** **** **** ****</span></p>
+                                <p>Titular: <span id="titular-cartao"></span></p>
+                            </div>
+                        </div>
+                        <div class="total-pagamento">
+                            <h2>Total a Pagar: R$ <span id="valor-total-cartao">0,00</span></h2>
+                        </div>
+                        <div class="opcoes-recebimento">
+                            <label class="checkbox-container">
+                                <input type="checkbox" id="receber-conta-celular">
+                                <span class="checkmark"></span>
+                                Deseja receber a conta no celular
+                            </label>
+                        </div>
+                        <div class="botoes">
+                            <button id="btn-confirmar-pagamento">Confirmar Pagamento</button>
+                            <button id="btn-cancelar-pagamento" class="acao-secundaria">Cancelar</button>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+
+        <!-- Tela de PIX -->
+        <div id="pix" class="tela">
+            <header>
+                <h2>Pagamento com PIX</h2>
+            </header>
+            <main>
+                <div class="qrcode-container">
+                    <div id="qrcode"></div>
+                    <p>Aproxime seu celular para ler o QR Code</p>
+                </div>
+            </main>
+        </div>
+
+        <!-- Tela de Confirmação do PIX -->
+        <div id="confirmacao-pix" class="tela">
+            <header>
+                <h2>Confirmação do PIX</h2>
+            </header>
+            <main>
+                <div class="info-pagamento">
+                    <div class="dados-pagamento">
+                        <div class="titular">
+                            <span class="label">Titular:</span>
+                            <span id="titular-pix">Nome do Titular</span>
+                        </div>
+                        <div class="valor">
+                            <span class="label">Valor Total:</span>
+                            <span id="valor-total-pix">R$ 0,00</span>
+                        </div>
+                    </div>
+                    <div class="opcoes-recebimento">
+                        <div class="checkbox-container">
+                            <input type="checkbox" id="receber-conta-celular-pix">
+                            <label for="receber-conta-celular-pix">Deseja receber a conta no celular?</label>
+                        </div>
+                    </div>
+                    <div class="botoes">
+                        <button id="btn-confirmar-pix" class="acao-principal">Confirmar</button>
+                        <button id="btn-cancelar-pix" class="acao-secundaria">Cancelar</button>
+                    </div>
+                </div>
+            </main>
+        </div>
+
+        <!-- Tela de Celular -->
+        <div id="celular" class="tela">
+            <header>
+                <h1>Cadastro (opcional)</h1>
+            </header>
+            <main>
+                <div class="central">
+                    <div class="bloco">
+                        <input type="text" id="nome-cadastro" placeholder="Seu nome">
+                        <input type="tel" id="celular-cadastro" placeholder="(00) 00000-0000" pattern="[0-9]{2}[0-9]{5}[0-9]{4}">
+                        <div class="botoes">
+                            <button id="btn-avancar-celular">Avançar</button>
+                            <button id="btn-pular-celular" class="acao-secundaria">Pular</button>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+
+        <!-- Tela de Leitor de Tag -->
+        <div id="leitor-tag" class="tela">
+            <header>
+                <h1>Aproxime o cartão ou pulseira</h1>
+            </header>
+            <main>
+                <div class="loading">
+                    <div></div>
+                </div>
+            </main>
+        </div>
+
+        <!-- Tela de Confirmação de Pedido -->
+        <div id="confirmacao-pedido" class="tela">
+            <header>
+                <h1>Confirme seu pedido</h1>
+            </header>
+            <main>
+                <div class="bloco">
+                    <div class="info-produto">
+                        <div class="produto-imagem" id="imagem-produto-selecionado"></div>
+                        <div class="detalhes-produto">
+                            <h2 id="nome-produto-selecionado"></h2>
+                            <div class="descricao-quantidade">
+                                <p id="descricao-produto-selecionado"></p>
+                                <div class="quantidade-produto">
+                                    <div class="controles-quantidade">
+                                        <button class="btn-quantidade" data-acao="diminuir">-</button>
+                                        <input type="number" min="1" value="1" class="input-quantidade">
+                                        <button class="btn-quantidade" data-acao="aumentar">+</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="preco">R$ <span id="preco-produto-selecionado">0,00</span></div>
+                        </div>
+                    </div>
+                    <div class="opcoes-produto">
+                        <h3>Opções</h3>
+                        <div class="lista-opcoes">
+                            <label class="opcao">
+                                <input type="checkbox" name="opcao" value="embalagem">
+                                <span>Embalagem para levar (+ R$ 2,00)</span>
+                            </label>
+                            <div class="acrescimos">
+                                <h4>Acréscimos</h4>
+                                <label class="opcao">
+                                    <input type="checkbox" name="opcao" value="catchup">
+                                    <span>Catchup (+ R$ 1,00)</span>
+                                </label>
+                                <label class="opcao">
+                                    <input type="checkbox" name="opcao" value="maionese">
+                                    <span>Maionese (+ R$ 1,00)</span>
+                                </label>
+                                <label class="opcao">
+                                    <input type="checkbox" name="opcao" value="molho-especial">
+                                    <span>Molho Especial (+ R$ 2,00)</span>
+                                </label>
+                            </div>
+                            <label class="opcao">
+                                <input type="checkbox" name="opcao" value="batata-frita">
+                                <span>Acréscimo de Batata Frita (+ R$ 15,90)</span>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="total">
+                        <h2>Total: R$ <span id="valor-total-pedido">0,00</span></h2>
+                        <div class="botoes">
+                            <button id="btn-continuar-pedindo" class="acao-secundaria">Continuar Pedindo</button>
+                            <button id="btn-acrescentar-conta" class="acao-secundaria">Acrescentar na Conta</button>
+                            <button id="btn-pagar-pedido">Pagar</button>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+
+        <!-- Tela de Conta -->
+        <div id="conta" class="tela">
+            <header>
+                <h1>Sua Conta</h1>
+            </header>
+            <main>
+                <div class="bloco">
+                    <div id="itens-conta">
+                        <!-- Itens da conta serão inseridos via JavaScript -->
+                    </div>
+                    <div class="total">
+                        <h2>Total: R$ <span id="valor-total">0,00</span></h2>
+                        <button>Pagar</button>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <script src="js/produtos.js"></script>
+    <script src="js/pagamento.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html> 
