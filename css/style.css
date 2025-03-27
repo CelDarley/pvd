@@ -1,0 +1,804 @@
+/* Estilos específicos para o sistema de pedidos */
+
+.tela {
+    display: none;
+    height: 100vh;
+    width: 100vw;
+    max-width: 1024px;
+    margin: 0 auto;
+    background: var(--cor-bg);
+}
+
+.tela.ativo {
+    display: block;
+}
+
+/* Estilos para a tela inicial */
+.tela-inicial-conteudo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    text-align: center;
+    padding: 2rem;
+}
+
+.logo-inicial {
+    max-width: 300px;
+    margin-bottom: 2rem;
+    animation: fadeIn 1s ease-in;
+}
+
+.titulo-bem-vindo {
+    font-size: 2.5rem;
+    color: var(--cor-primaria);
+    margin-bottom: 2rem;
+    animation: fadeIn 1s ease-in;
+}
+
+.animacao-cartao {
+    margin-top: 2rem;
+}
+
+.texto-animado {
+    font-size: 1.5rem;
+    color: var(--cor-secundaria);
+    animation: pulse 2s infinite;
+}
+
+.btn-ir-cardapio {
+    background: var(--cor-primaria);
+    color: white;
+    border: none;
+    padding: 1rem 2rem;
+    border-radius: 8px;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    min-width: 200px;
+}
+
+.btn-ir-cardapio:hover {
+    background: var(--cor-primaria-escura);
+    transform: translateY(-2px);
+}
+
+.btn-ir-cardapio:disabled {
+    background: var(--cor-cinza);
+    cursor: not-allowed;
+    transform: none;
+    opacity: 0.8;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes pulse {
+    0% {
+        opacity: 1;
+        transform: scale(1);
+    }
+    50% {
+        opacity: 0.7;
+        transform: scale(1.05);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+/* Estilos para o cardápio */
+.secao-produtos {
+    margin-bottom: 2rem;
+    background: var(--cor-bg);
+    border-radius: 12px;
+    padding: 1.5rem;
+    box-shadow: 0 1px 24px var(--cor-cinza);
+}
+
+.titulo-secao {
+    color: var(--cor-primaria);
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid var(--cor-primaria);
+}
+
+.produtos-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 1.5rem;
+}
+
+.produto {
+    background: var(--cor-bg);
+    border-radius: 12px;
+    box-shadow: 0 1px 24px var(--cor-cinza);
+    overflow: hidden;
+    transition: transform 0.2s ease;
+}
+
+.produto:hover {
+    transform: translateY(-5px);
+}
+
+.produto-imagem {
+    width: 100%;
+    height: 200px;
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+}
+
+.produto-imagem svg {
+    max-width: 100%;
+    max-height: 100%;
+}
+
+.produto .info {
+    padding: 1rem;
+    margin-top: 0.5rem;
+}
+
+.produto h3 {
+    margin: 0 0 0.5rem 0;
+    color: var(--cor-primaria);
+    font-size: 1.2rem;
+}
+
+.produto p {
+    margin: 0 0 1rem 0;
+    color: var(--cor-texto);
+    font-size: 0.9rem;
+    line-height: 1.4;
+}
+
+.produto .preco {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: var(--cor-secundaria);
+}
+
+/* Estilos para o QR Code */
+#qrcode {
+    width: 300px;
+    height: 300px;
+    margin: 0 auto;
+    background: white;
+    padding: 20px;
+}
+
+/* Estilos para a lista de pedidos */
+#lista-pedido, #itens-conta {
+    margin-bottom: var(--margem);
+}
+
+.item-pedido {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: 1rem;
+    border-bottom: 1px solid var(--cor-separador);
+}
+
+.item-pedido:last-child {
+    border-bottom: none;
+}
+
+.info-item {
+    flex: 1;
+}
+
+.info-item h3 {
+    margin: 0 0 0.5rem 0;
+    color: var(--cor-primaria);
+}
+
+.opcoes-item, .acrescimos-item {
+    font-size: 0.9rem;
+    color: var(--cor-texto);
+    margin-bottom: 0.5rem;
+    padding-left: 1rem;
+}
+
+.opcoes-item {
+    color: var(--cor-primaria);
+}
+
+.acrescimos-item {
+    color: var(--cor-secundaria);
+}
+
+.quantidade {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: 0.5rem;
+}
+
+.quantidade button {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    border: none;
+    background: var(--cor-primaria);
+    color: white;
+    font-size: 1.2rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.quantidade input {
+    width: 50px;
+    text-align: center;
+    border: 1px solid var(--cor-separador);
+    border-radius: 4px;
+    padding: 0.3rem;
+}
+
+.item-pedido .preco {
+    font-weight: bold;
+    color: var(--cor-secundaria);
+    margin-left: 1rem;
+}
+
+/* Estilos para o total */
+.total {
+    text-align: right;
+    padding-top: var(--margem);
+    border-top: 1px solid var(--cor-separador);
+}
+
+/* Estilos para feedback de pagamento */
+.feedback {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background-color: var(--cor-primaria);
+    color: white;
+    padding: 1rem 2rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    animation: slideIn 0.3s ease-out;
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+.feedback.sucesso {
+    color: var(--cor-sucesso);
+}
+
+.feedback.erro {
+    color: var(--cor-erro);
+}
+
+/* Ajustes para tablet */
+@media screen and (min-width: 1024px) {
+    .container {
+        max-width: 1024px;
+        margin: 0 auto;
+    }
+    
+    .grid-2 {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .grid-3 {
+        grid-template-columns: repeat(3, 1fr);
+    }
+    
+    .grid-4 {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
+
+.botoes {
+    display: flex;
+    gap: var(--margem);
+    margin-top: var(--margem);
+}
+
+.botoes button {
+    flex: 1;
+    min-width: 0;
+}
+
+.botoes button.acao-secundaria {
+    background: transparent;
+    border: 2px solid var(--cor-primaria);
+    color: var(--cor-primaria);
+}
+
+.botoes button.acao-secundaria:hover {
+    background: var(--cor-primaria);
+    color: var(--cor-bg);
+}
+
+/* Estilos para o header */
+header {
+    display: flex;
+    align-items: center;
+    padding: 1rem;
+    background: var(--cor-primaria);
+    color: white;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+header h1 {
+    margin: 0;
+    flex: 1;
+    text-align: center;
+}
+
+.icone-voltar {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 1.2rem;
+    cursor: pointer;
+    padding: 0.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    position: absolute;
+    left: 1rem;
+}
+
+.icone-voltar:hover {
+    opacity: 0.8;
+}
+
+.header-botoes {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+.header-titulo {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+}
+
+.header-titulo h1 {
+    margin: 0;
+    text-align: left;
+}
+
+.numero-mesa {
+    font-size: 1.2rem;
+    color: var(--cor-secundaria);
+    font-weight: 600;
+}
+
+.header-botoes button {
+    margin: 0;
+}
+
+.opcoes-produto {
+    padding: var(--margem);
+    border-bottom: 1px solid var(--cor-separador);
+}
+
+.opcoes-produto h3 {
+    margin: 0 0 1rem;
+    color: var(--cor-fonte-forte);
+}
+
+.lista-opcoes {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.acrescimos {
+    background: var(--cor-cinza);
+    padding: 1rem;
+    border-radius: var(--raio-borda);
+    margin: 0.5rem 0;
+}
+
+.acrescimos h4 {
+    margin: 0 0 0.5rem;
+    color: var(--cor-fonte-forte);
+    font-size: 1rem;
+}
+
+.opcao {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    cursor: pointer;
+    padding: 0.5rem;
+    border-radius: var(--raio-borda);
+    transition: background-color 0.2s;
+}
+
+.opcao:hover {
+    background: var(--cor-cinza);
+}
+
+.opcao input[type="checkbox"] {
+    width: 1.2rem;
+    height: 1.2rem;
+    margin: 0;
+}
+
+.opcao span {
+    color: var(--cor-fonte);
+}
+
+.opcao input[type="checkbox"]:checked + span {
+    color: var(--cor-primaria);
+}
+
+.detalhes-produto {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.descricao-quantidade {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+}
+
+.descricao-quantidade p {
+    flex: 1;
+    margin: 0;
+}
+
+.quantidade-produto {
+    flex: 0 0 auto;
+}
+
+.controles-quantidade {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: var(--cor-cinza);
+    padding: 0.5rem;
+    border-radius: var(--raio-borda);
+}
+
+#inicial .botoes {
+    display: flex;
+    flex-direction: column;
+    gap: var(--margem);
+    margin-top: var(--margem);
+}
+
+#inicial .botoes button {
+    width: 100%;
+    padding: 16px;
+    font-size: 1.2em;
+    border-radius: var(--raio-borda);
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+#inicial .botoes button.acao-secundaria {
+    background: transparent;
+    border: 2px solid var(--cor-primaria);
+    color: var(--cor-primaria);
+}
+
+#inicial .botoes button.acao-secundaria:hover {
+    background: var(--cor-primaria);
+    color: var(--cor-bg);
+}
+
+.botoes-header {
+    display: flex;
+    gap: var(--margem);
+    align-items: center;
+}
+
+.botoes-header button {
+    margin: 0;
+}
+
+.botoes-header button.acao-secundaria {
+    background: transparent;
+    border: 2px solid var(--cor-primaria);
+    color: var(--cor-primaria);
+    padding: 8px 16px;
+}
+
+.botoes-header button.acao-secundaria:hover {
+    background: var(--cor-primaria);
+    color: var(--cor-bg);
+}
+
+.info-cartao {
+    display: flex;
+    align-items: center;
+    gap: var(--margem);
+    padding: var(--margem);
+    background: var(--cor-cinza);
+    border-radius: var(--raio-borda);
+    margin-bottom: var(--margem);
+}
+
+.bandeira-cartao {
+    width: 80px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--cor-bg);
+    border-radius: var(--raio-borda);
+    padding: 8px;
+}
+
+.bandeira-cartao img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+}
+
+.dados-cartao {
+    flex: 1;
+}
+
+.dados-cartao p {
+    margin: 0;
+    line-height: 1.5;
+}
+
+.total-pagamento {
+    text-align: center;
+    margin: var(--margem) 0;
+    padding: var(--margem);
+    background: var(--cor-primaria-fraca);
+    border-radius: var(--raio-borda);
+}
+
+.opcoes-recebimento {
+    margin: var(--margem) 0;
+}
+
+.checkbox-container {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+}
+
+.checkbox-container input[type="checkbox"] {
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+}
+
+.icone-casa:before {
+    background-image: url(../img/home.svg);
+}
+
+header .icone-casa {
+    margin-right: auto;
+    margin-left: 0;
+}
+
+header .icone-casa:hover {
+    background-color: var(--cor-primaria-fraca);
+}
+
+/* Estilos para a tela de confirmação do produto */
+.info-produto {
+    display: flex;
+    gap: 1.5rem;
+    padding: 1.5rem;
+    border-bottom: 1px solid var(--cor-separador);
+}
+
+.info-produto .produto-imagem {
+    width: 200px;
+    height: 200px;
+    flex-shrink: 0;
+}
+
+.info-produto .detalhes-produto {
+    flex: 1;
+}
+
+.info-produto h2 {
+    margin: 0 0 1rem 0;
+    color: var(--cor-primaria);
+    font-size: 1.5rem;
+}
+
+.info-produto p {
+    margin: 0 0 1rem 0;
+    color: var(--cor-texto);
+    line-height: 1.5;
+}
+
+.info-produto .preco {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: var(--cor-secundaria);
+}
+
+.opcoes-produto {
+    padding: 1.5rem;
+    border-bottom: 1px solid var(--cor-separador);
+}
+
+.opcoes-produto h3 {
+    margin: 0 0 1rem 0;
+    color: var(--cor-primaria);
+    font-size: 1.2rem;
+}
+
+.lista-opcoes {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+    margin-bottom: 1.5rem;
+}
+
+.acrescimos {
+    background: var(--cor-cinza);
+    padding: 1rem;
+    border-radius: 8px;
+}
+
+.opcao {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    cursor: pointer;
+    padding: 0.5rem;
+    border-radius: 4px;
+    transition: background-color 0.2s;
+}
+
+.opcao:hover {
+    background: var(--cor-cinza);
+}
+
+.opcao input[type="checkbox"] {
+    width: 1.2rem;
+    height: 1.2rem;
+    margin: 0;
+}
+
+.opcao span {
+    color: var(--cor-texto);
+}
+
+.quantidade {
+    padding: 1.5rem;
+    border-bottom: 1px solid var(--cor-separador);
+}
+
+.quantidade h3 {
+    margin: 0 0 1rem 0;
+    color: var(--cor-primaria);
+    font-size: 1.2rem;
+}
+
+.controles-quantidade {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    background: var(--cor-cinza);
+    padding: 0.5rem;
+    border-radius: 8px;
+    width: fit-content;
+}
+
+.controles-quantidade button {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: none;
+    background: var(--cor-primaria);
+    color: white;
+    font-size: 1.5rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.controles-quantidade input {
+    width: 60px;
+    text-align: center;
+    border: 1px solid var(--cor-separador);
+    border-radius: 4px;
+    padding: 0.5rem;
+    font-size: 1.2rem;
+}
+
+.total {
+    padding: 1.5rem;
+    text-align: right;
+}
+
+.total h2 {
+    margin: 0 0 1rem 0;
+    color: var(--cor-primaria);
+    font-size: 1.5rem;
+}
+
+.total .botoes {
+    display: flex;
+    gap: 1rem;
+    justify-content: flex-end;
+}
+
+.total .botoes button {
+    min-width: 150px;
+}
+
+/* Estilos para a tela de pedido confirmado */
+.mensagem-confirmacao {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 3rem 2rem;
+}
+
+.icone-sucesso {
+    width: 80px;
+    height: 80px;
+    background: var(--cor-sucesso);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 2.5rem;
+    margin-bottom: 2rem;
+}
+
+.mensagem-confirmacao h2 {
+    color: var(--cor-primaria);
+    font-size: 1.8rem;
+    margin-bottom: 1rem;
+}
+
+.mensagem-confirmacao p {
+    color: var(--cor-texto);
+    font-size: 1.2rem;
+    margin-bottom: 2rem;
+}
+
+.mensagem-confirmacao button {
+    min-width: 200px;
+} 

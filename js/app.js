@@ -3,19 +3,29 @@ class SistemaPedidos {
         this.gateway = new GatewayPagamento();
         this.pedidoAtual = [];
         this.contaAtual = null;
+        this.pedidosFeitos = []; // Array para armazenar todos os pedidos
         this.inicializar();
     }
 
     inicializar() {
         this.carregarProdutos();
         this.configurarEventos();
-        this.mostrarTela('cardapio');
+        
+        // Faz a transição automática para o cardápio após 3 segundos
+        setTimeout(() => {
+            this.mostrarTela('cardapio');
+        }, 3000);
     }
 
     carregarProdutos() {
-        const container = document.getElementById('lista-produtos');
-        container.innerHTML = produtos.map(produto => `
-            <div class="produto" data-id="${produto.id}">
+        // Organiza os produtos por categoria
+        const sanduiches = produtos.filter(p => p.categoria === "Hambúrgueres");
+        const bebidas = produtos.filter(p => p.categoria === "Bebidas");
+        const sobremesas = produtos.filter(p => p.categoria === "Sobremesas");
+
+        // Função para gerar o HTML de um produto
+        const gerarHTMLProduto = (produto) => `
+            <div class="produto" data-id="${produto.id}" style="cursor: pointer;">
                 <div class="produto-imagem">${produto.imagem}</div>
                 <div class="info">
                     <h3>${produto.nome}</h3>
@@ -23,17 +33,27 @@ class SistemaPedidos {
                     <div class="preco">R$ ${produto.preco.toFixed(2)}</div>
                 </div>
             </div>
-        `).join('');
+        `;
+
+        // Carrega os produtos em suas respectivas seções
+        document.getElementById('sanduiches').innerHTML = sanduiches.map(gerarHTMLProduto).join('');
+        document.getElementById('bebidas').innerHTML = bebidas.map(gerarHTMLProduto).join('');
+        document.getElementById('sobremesas').innerHTML = sobremesas.map(gerarHTMLProduto).join('');
     }
 
     configurarEventos() {
+        // Evento do botão Ver conta
+        document.getElementById('btn-ver-conta').addEventListener('click', () => {
+            this.mostrarTela('visualizar-conta');
+            this.atualizarVisualizacaoConta();
+        });
+
         // Eventos do cardápio
-        document.getElementById('lista-produtos').addEventListener('click', (e) => {
-            const produto = e.target.closest('.produto');
-            if (produto) {
+        document.querySelectorAll('.produto').forEach(produto => {
+            produto.addEventListener('click', (e) => {
                 const id = parseInt(produto.dataset.id);
                 this.adicionarItem(id);
-            }
+            });
         });
 
         // Eventos das opções
@@ -49,73 +69,70 @@ class SistemaPedidos {
         document.querySelectorAll('[data-pagamento]').forEach(btn => {
             btn.addEventListener('click', (e) => {
                 e.preventDefault();
-                const metodo = e.currentTarget.dataset.pagamento;
-                this.processarPagamento(metodo);
+                const forma = e.currentTarget.dataset.pagamento;
+                this.processarPagamento(forma);
             });
         });
 
         // Evento de confirmação de pedido
-        document.getElementById('confirmacao-pedido').addEventListener('click', (e) => {
-            if (e.target.matches('button')) {
-                this.confirmarPedido();
-            }
+        document.getElementById('btn-confirmar-pedido')?.addEventListener('click', () => {
+            this.confirmarPedido();
         });
 
         // Evento do botão de avançar na tela de celular
-        document.getElementById('btn-avancar-celular').addEventListener('click', () => {
+        document.getElementById('btn-avancar-celular')?.addEventListener('click', () => {
             this.confirmarCelular();
         });
 
         // Evento do botão pular celular
-        document.getElementById('btn-pular-celular').addEventListener('click', () => {
+        document.getElementById('btn-pular-celular')?.addEventListener('click', () => {
             this.mostrarTela('leitor-tag');
             this.lerTagNFC();
         });
 
-        // Evento do botão ver conta
-        document.getElementById('btn-ver-conta').addEventListener('click', () => {
-            this.mostrarTela('leitor-tag');
-            this.lerTagNFCVerConta();
-        });
-
         // Evento do botão pagar conta
-        document.getElementById('btn-pagar-conta').addEventListener('click', () => {
+        document.getElementById('btn-pagar-conta')?.addEventListener('click', () => {
             this.mostrarTela('pagamento');
         });
 
         // Evento do botão continuar pedindo
-        document.getElementById('btn-continuar-pedindo').addEventListener('click', () => {
+        document.getElementById('btn-continuar-pedindo')?.addEventListener('click', () => {
+            this.mostrarTela('cardapio');
+        });
+
+        // Evento do botão voltar ao cardápio após confirmação
+        document.getElementById('btn-voltar-cardapio-confirmado')?.addEventListener('click', () => {
             this.mostrarTela('cardapio');
         });
 
         // Evento do botão pagar pedido
-        document.getElementById('btn-pagar-pedido').addEventListener('click', () => {
+        document.getElementById('btn-pagar-pedido')?.addEventListener('click', () => {
             this.mostrarTela('pagamento');
         });
 
         // Evento do botão voltar ao cardápio
-        document.getElementById('btn-voltar-cardapio').addEventListener('click', () => {
+        document.getElementById('btn-voltar-cardapio')?.addEventListener('click', () => {
             this.mostrarTela('cardapio');
         });
 
         // Botão voltar na tela de pagamento
-        document.getElementById('btn-voltar-pagamento').addEventListener('click', () => {
+        document.getElementById('btn-voltar-pagamento')?.addEventListener('click', () => {
             this.mostrarTela('cardapio');
         });
 
         // Botão abrir conta no cardápio
-        document.getElementById('btn-abrir-conta-cardapio').addEventListener('click', () => {
+        document.getElementById('btn-abrir-conta-cardapio')?.addEventListener('click', () => {
             this.mostrarTela('celular');
         });
 
         // Evento do botão acrescentar na conta
-        document.getElementById('btn-acrescentar-conta').addEventListener('click', () => {
+        document.getElementById('btn-acrescentar-conta')?.addEventListener('click', () => {
             this.mostrarTela('leitor-tag');
             this.lerTagNFCAdicionarConta();
         });
 
         // Evento do botão confirmar pagamento
-        document.getElementById('btn-confirmar-pagamento').addEventListener('click', async () => {
+        document.getElementById('btn-confirmar-pagamento')?.addEventListener('click', async () => {
             const receberContaCelular = document.getElementById('receber-conta-celular').checked;
             const valor = this.calcularTotal();
             const pagamento = await this.gateway.processarCartao(valor);
@@ -129,12 +146,12 @@ class SistemaPedidos {
         });
 
         // Evento do botão cancelar pagamento
-        document.getElementById('btn-cancelar-pagamento').addEventListener('click', () => {
+        document.getElementById('btn-cancelar-pagamento')?.addEventListener('click', () => {
             this.mostrarTela('pagamento');
         });
 
         // Evento do botão confirmar pagamento PIX
-        document.getElementById('btn-confirmar-pix').addEventListener('click', async () => {
+        document.getElementById('btn-confirmar-pix')?.addEventListener('click', async () => {
             const receberContaCelular = document.getElementById('receber-conta-celular-pix').checked;
             
             if (receberContaCelular && this.contaAtual?.celular) {
@@ -146,37 +163,61 @@ class SistemaPedidos {
         });
 
         // Evento do botão cancelar pagamento PIX
-        document.getElementById('btn-cancelar-pix').addEventListener('click', () => {
+        document.getElementById('btn-cancelar-pix')?.addEventListener('click', () => {
             this.mostrarTela('pagamento');
+        });
+
+        // Evento para o ícone de casa
+        document.querySelectorAll('.icone-casa').forEach(icone => {
+            icone.addEventListener('click', (e) => {
+                e.preventDefault();
+                this.mostrarTela('cardapio');
+            });
+        });
+
+        // Evento do botão ir para o cardápio na tela inicial
+        document.getElementById('btn-ir-cardapio')?.addEventListener('click', () => {
+            // Desabilita o botão para evitar múltiplos cliques
+            const btn = document.getElementById('btn-ir-cardapio');
+            btn.disabled = true;
+            btn.textContent = 'Carregando...';
+            
+            // Espera 3 segundos antes de mostrar o cardápio
+            setTimeout(() => {
+                this.mostrarTela('cardapio');
+            }, 3000);
         });
     }
 
     adicionarItem(id) {
         const produto = produtos.find(p => p.id === id);
-        if (produto) {
-            // Preenche as informações do produto na tela
-            document.getElementById('imagem-produto-selecionado').innerHTML = produto.imagem;
-            document.getElementById('nome-produto-selecionado').textContent = produto.nome;
-            document.getElementById('descricao-produto-selecionado').textContent = produto.descricao;
-            document.getElementById('preco-produto-selecionado').textContent = produto.preco.toFixed(2);
+        if (!produto) return;
 
-            // Adiciona o produto ao pedido
-            this.pedidoAtual.push({
-                ...produto,
-                quantidade: 1,
-                opcoes: [],
-                acrescimos: {
-                    embalagem: false,
-                    catchup: false,
-                    maionese: false,
-                    molhoEspecial: false,
-                    batataFrita: false
-                }
-            });
+        // Preenche as informações do produto na tela
+        document.getElementById('imagem-produto').innerHTML = produto.imagem;
+        document.getElementById('nome-produto').textContent = produto.nome;
+        document.getElementById('descricao-produto').textContent = produto.descricao;
+        document.getElementById('preco-produto').textContent = produto.preco.toFixed(2);
 
-            this.mostrarTela('confirmacao-pedido');
-            this.atualizarListaPedido();
-        }
+        // Adiciona o produto ao pedido com as opções padrão
+        this.pedidoAtual.push({
+            id: produto.id,
+            nome: produto.nome,
+            preco: produto.preco,
+            quantidade: 1,
+            opcoes: [],
+            acrescimos: {
+                embalagem: false,
+                catchup: false,
+                maionese: false,
+                molhoEspecial: false,
+                batataFrita: false
+            }
+        });
+
+        // Mostra a tela de confirmação do produto
+        this.mostrarTela('confirmacao-produto');
+        this.atualizarListaPedido();
     }
 
     processarOpcao(opcao) {
@@ -321,15 +362,17 @@ class SistemaPedidos {
         document.getElementById('valor-total-pedido').textContent = this.calcularTotal().toFixed(2);
 
         // Configura os eventos dos botões de quantidade
-        const btnDiminuir = document.querySelector('.controles-quantidade .btn-quantidade[data-acao="diminuir"]');
-        const btnAumentar = document.querySelector('.controles-quantidade .btn-quantidade[data-acao="aumentar"]');
-        const inputQuantidade = document.querySelector('.controles-quantidade .input-quantidade');
+        const btnDiminuir = document.getElementById('btn-diminuir');
+        const btnAumentar = document.getElementById('btn-aumentar');
+        const inputQuantidade = document.getElementById('quantidade');
 
         if (this.pedidoAtual.length > 0) {
             const item = this.pedidoAtual[this.pedidoAtual.length - 1];
             inputQuantidade.value = item.quantidade;
 
-            btnDiminuir.onclick = () => {
+            btnDiminuir.onclick = (e) => {
+                e.preventDefault();
+                e.stopPropagation();
                 if (item.quantidade > 1) {
                     item.quantidade--;
                     inputQuantidade.value = item.quantidade;
@@ -337,13 +380,17 @@ class SistemaPedidos {
                 }
             };
 
-            btnAumentar.onclick = () => {
+            btnAumentar.onclick = (e) => {
+                e.preventDefault();
+                e.stopPropagation();
                 item.quantidade++;
                 inputQuantidade.value = item.quantidade;
                 this.atualizarListaPedido();
             };
 
-            inputQuantidade.onchange = () => {
+            inputQuantidade.onchange = (e) => {
+                e.preventDefault();
+                e.stopPropagation();
                 const quantidade = parseInt(inputQuantidade.value);
                 if (quantidade > 0) {
                     item.quantidade = quantidade;
@@ -354,23 +401,22 @@ class SistemaPedidos {
 
         // Configura os eventos das opções
         document.querySelectorAll('.opcao input[type="checkbox"]').forEach(checkbox => {
-            checkbox.onchange = () => {
+            checkbox.onchange = (e) => {
+                e.preventDefault();
+                e.stopPropagation();
                 const item = this.pedidoAtual[this.pedidoAtual.length - 1];
-                switch(checkbox.value) {
-                    case 'embalagem':
-                        item.acrescimos.embalagem = checkbox.checked;
+                switch(checkbox.id) {
+                    case 'queijo-extra':
+                        item.opcoes.push('Queijo Extra');
                         break;
-                    case 'catchup':
-                        item.acrescimos.catchup = checkbox.checked;
+                    case 'bacon-extra':
+                        item.opcoes.push('Bacon Extra');
                         break;
-                    case 'maionese':
-                        item.acrescimos.maionese = checkbox.checked;
+                    case 'ovo':
+                        item.opcoes.push('Ovo');
                         break;
-                    case 'molho-especial':
-                        item.acrescimos.molhoEspecial = checkbox.checked;
-                        break;
-                    case 'batata-frita':
-                        item.acrescimos.batataFrita = checkbox.checked;
+                    case 'sem-cebola':
+                        item.opcoes.push('Sem Cebola');
                         break;
                 }
                 this.atualizarListaPedido();
@@ -394,15 +440,25 @@ class SistemaPedidos {
     }
 
     confirmarPedido() {
-        if (this.contaAtual) {
-            this.mostrarFeedback("Pedido feito");
-            this.limparPedido();
-            this.mostrarTela('cardapio');
-        }
+        // Gera um número aleatório para o pedido (entre 100 e 999)
+        const numeroPedido = Math.floor(Math.random() * 900) + 100;
+        
+        // Atualiza o número do pedido na tela
+        document.getElementById('numero-pedido').textContent = numeroPedido;
+        
+        // Adiciona os itens do pedido atual aos pedidos feitos
+        this.pedidosFeitos = [...this.pedidosFeitos, ...this.pedidoAtual];
+        
+        // Mostra a tela de confirmação
+        this.mostrarTela('pedido-confirmado');
+        
+        // Limpa apenas o pedido atual para permitir novos pedidos
+        this.pedidoAtual = [];
     }
 
     limparPedido() {
         this.pedidoAtual = [];
+        this.pedidosFeitos = []; // Limpa também os pedidos feitos
     }
 
     mostrarFeedback(mensagem) {
@@ -440,29 +496,78 @@ class SistemaPedidos {
 
     atualizarVisualizacaoConta() {
         const container = document.getElementById('itens-conta-visualizacao');
-        const itensExemplo = [
-            { nome: 'X-Burger', preco: 25.90, quantidade: 2 },
-            { nome: 'X-Bacon', preco: 28.90, quantidade: 1 },
-            { nome: 'Batata Frita', preco: 15.90, quantidade: 2 },
-            { nome: 'Refrigerante', preco: 8.90, quantidade: 3 },
-            { nome: 'Água Mineral', preco: 5.90, quantidade: 2 },
-            { nome: 'Sorvete', preco: 12.90, quantidade: 1 }
-        ];
+        if (!container) return;
 
-        container.innerHTML = itensExemplo.map(item => `
-            <div class="item-pedido">
-                <div class="info-item">
-                    <span>${item.nome}</span>
-                    <span>R$ ${item.preco.toFixed(2)}</span>
-                </div>
-                <div class="quantidade">
-                    <span>x${item.quantidade}</span>
-                </div>
-            </div>
-        `).join('');
+        // Usa os pedidos feitos ao invés do pedido atual
+        container.innerHTML = this.pedidosFeitos.map(item => {
+            // Formata as opções e acréscimos
+            const opcoes = item.opcoes.length > 0 ? 
+                `<div class="opcoes-item">${item.opcoes.join(', ')}</div>` : '';
+            
+            const acrescimos = [];
+            if (item.acrescimos.embalagem) acrescimos.push('Embalagem para levar');
+            if (item.acrescimos.catchup) acrescimos.push('Catchup');
+            if (item.acrescimos.maionese) acrescimos.push('Maionese');
+            if (item.acrescimos.molhoEspecial) acrescimos.push('Molho Especial');
+            if (item.acrescimos.batataFrita) acrescimos.push('Batata Frita');
+            
+            const acrescimosHtml = acrescimos.length > 0 ? 
+                `<div class="acrescimos-item">${acrescimos.join(', ')}</div>` : '';
 
-        const total = itensExemplo.reduce((total, item) => total + (item.preco * item.quantidade), 0);
+            // Calcula o preço total do item incluindo acréscimos
+            let precoTotal = item.preco;
+            if (item.acrescimos.embalagem) precoTotal += 2.00;
+            if (item.acrescimos.catchup) precoTotal += 1.00;
+            if (item.acrescimos.maionese) precoTotal += 1.00;
+            if (item.acrescimos.molhoEspecial) precoTotal += 2.00;
+            if (item.acrescimos.batataFrita) precoTotal += 15.90;
+
+            return `
+                <div class="item-pedido">
+                    <div class="info-item">
+                        <h3>${item.nome}</h3>
+                        ${opcoes}
+                        ${acrescimosHtml}
+                        <div class="quantidade">
+                            <button onclick="sistema.ajustarQuantidade(${item.id}, -1)">-</button>
+                            <input type="number" value="${item.quantidade}" min="1" 
+                                onchange="sistema.atualizarQuantidade(${item.id}, this.value)">
+                            <button onclick="sistema.ajustarQuantidade(${item.id}, 1)">+</button>
+                        </div>
+                    </div>
+                    <div class="preco">R$ ${(precoTotal * item.quantidade).toFixed(2)}</div>
+                </div>
+            `;
+        }).join('');
+
+        // Atualiza o total usando os pedidos feitos
+        const total = this.pedidosFeitos.reduce((acc, item) => {
+            let precoItem = item.preco;
+            if (item.acrescimos.embalagem) precoItem += 2.00;
+            if (item.acrescimos.catchup) precoItem += 1.00;
+            if (item.acrescimos.maionese) precoItem += 1.00;
+            if (item.acrescimos.molhoEspecial) precoItem += 2.00;
+            if (item.acrescimos.batataFrita) precoItem += 15.90;
+            return acc + (precoItem * item.quantidade);
+        }, 0);
+        
         document.getElementById('valor-total-visualizacao').textContent = total.toFixed(2);
+    }
+
+    ajustarQuantidade(id, delta) {
+        const item = this.pedidosFeitos.find(item => item.id === id);
+        if (item) {
+            item.quantidade = Math.max(1, item.quantidade + delta);
+            this.atualizarVisualizacaoConta();
+        }
+    }
+
+    atualizarQuantidade(id, novaQuantidade) {
+        const item = this.pedidosFeitos.find(item => item.id === id);
+        if (item) {
+            item.quantidade = Math.max(1, parseInt(novaQuantidade) || 1);
+            this.atualizarVisualizacaoConta();
+        }
     }
 }
 

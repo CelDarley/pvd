@@ -12,20 +12,55 @@
 </head>
 <body>
     <div class="container">
+        <!-- Tela Inicial -->
+        <div id="inicial" class="tela ativo">
+            <div class="tela-inicial-conteudo">
+                <img src="img/logo_veredas.png" alt="Logo Veredas" class="logo-inicial">
+                <h1 class="titulo-bem-vindo">Bem-vindo ao Restaurante Veredas</h1>
+                <div class="animacao-cartao">
+                    <p class="texto-animado">Aproxime seu cartão para acesso ao cardápio</p>
+                </div>
+            </div>
+        </div>
+
         <!-- Tela de Cardápio -->
-        <div id="cardapio" class="tela ativo">
+        <div id="cardapio" class="tela">
             <header>
                 <div class="header-botoes">
-                    <h1>Cardápio</h1>
+                    <div class="header-titulo">
+                        <h1>Cardápio</h1>
+                        <span class="numero-mesa">Mesa 001</span>
+                    </div>
                     <div class="botoes-header">
-                        <button id="btn-abrir-conta-cardapio" class="acao-secundaria">Abrir Conta</button>
-                        <button id="btn-ver-conta" class="icone-compras">Ver Conta</button>
+                        <button id="btn-ver-conta" class="icone-compras">Ver conta - Mesa 001</button>
                     </div>
                 </div>
             </header>
             <main>
                 <div class="grid-2" id="lista-produtos">
-                    <!-- Produtos serão inseridos via JavaScript -->
+                    <!-- Seção de Sanduíches -->
+                    <div class="secao-produtos">
+                        <h2 class="titulo-secao">Sanduíches</h2>
+                        <div class="produtos-grid" id="sanduiches">
+                            <!-- Produtos serão inseridos via JavaScript -->
+                        </div>
+                    </div>
+
+                    <!-- Seção de Bebidas -->
+                    <div class="secao-produtos">
+                        <h2 class="titulo-secao">Bebidas</h2>
+                        <div class="produtos-grid" id="bebidas">
+                            <!-- Produtos serão inseridos via JavaScript -->
+                        </div>
+                    </div>
+
+                    <!-- Seção de Sobremesas -->
+                    <div class="secao-produtos">
+                        <h2 class="titulo-secao">Sobremesas</h2>
+                        <div class="produtos-grid" id="sobremesas">
+                            <!-- Produtos serão inseridos via JavaScript -->
+                        </div>
+                    </div>
                 </div>
             </main>
         </div>
@@ -33,8 +68,8 @@
         <!-- Tela de Visualização da Conta -->
         <div id="visualizar-conta" class="tela">
             <header>
-                <h1>Itens da Conta</h1>
                 <button id="btn-voltar-cardapio" class="icone-voltar">Voltar ao Cardápio</button>
+                <h1>Itens da Conta</h1>
             </header>
             <main>
                 <div class="bloco">
@@ -141,42 +176,12 @@
         <!-- Tela de PIX -->
         <div id="pix" class="tela">
             <header>
-                <h2>Pagamento com PIX</h2>
+                <h1>Pagamento via PIX</h1>
             </header>
             <main>
-                <div class="qrcode-container">
-                    <div id="qrcode"></div>
-                    <p>Aproxime seu celular para ler o QR Code</p>
-                </div>
-            </main>
-        </div>
-
-        <!-- Tela de Confirmação do PIX -->
-        <div id="confirmacao-pix" class="tela">
-            <header>
-                <h2>Confirmação do PIX</h2>
-            </header>
-            <main>
-                <div class="info-pagamento">
-                    <div class="dados-pagamento">
-                        <div class="titular">
-                            <span class="label">Titular:</span>
-                            <span id="titular-pix">Nome do Titular</span>
-                        </div>
-                        <div class="valor">
-                            <span class="label">Valor Total:</span>
-                            <span id="valor-total-pix">R$ 0,00</span>
-                        </div>
-                    </div>
-                    <div class="opcoes-recebimento">
-                        <div class="checkbox-container">
-                            <input type="checkbox" id="receber-conta-celular-pix">
-                            <label for="receber-conta-celular-pix">Deseja receber a conta no celular?</label>
-                        </div>
-                    </div>
-                    <div class="botoes">
-                        <button id="btn-confirmar-pix" class="acao-principal">Confirmar</button>
-                        <button id="btn-cancelar-pix" class="acao-secundaria">Cancelar</button>
+                <div class="central">
+                    <div id="qrcode" class="bloco">
+                        <!-- QR Code será inserido via JavaScript -->
                     </div>
                 </div>
             </main>
@@ -294,10 +299,107 @@
                 </div>
             </main>
         </div>
+
+        <!-- Tela de Confirmação do Produto -->
+        <div id="confirmacao-produto" class="tela">
+            <header>
+                <button id="btn-voltar-confirmacao" class="icone-voltar">Voltar ao Cardápio</button>
+                <h1>Confirme seu pedido</h1>
+            </header>
+            <main>
+                <div class="bloco">
+                    <div class="info-produto">
+                        <div class="produto-imagem" id="imagem-produto"></div>
+                        <div class="detalhes-produto">
+                            <h2 id="nome-produto"></h2>
+                            <p id="descricao-produto"></p>
+                            <div class="preco">R$ <span id="preco-produto">0,00</span></div>
+                        </div>
+                    </div>
+                    <div class="opcoes-produto">
+                        <h3>Opções</h3>
+                        <div class="lista-opcoes">
+                            <label class="opcao">
+                                <input type="checkbox" id="queijo-extra">
+                                <span>Queijo Extra</span>
+                            </label>
+                            <label class="opcao">
+                                <input type="checkbox" id="bacon-extra">
+                                <span>Bacon Extra</span>
+                            </label>
+                            <label class="opcao">
+                                <input type="checkbox" id="ovo">
+                                <span>Ovo</span>
+                            </label>
+                            <label class="opcao">
+                                <input type="checkbox" id="sem-cebola">
+                                <span>Sem Cebola</span>
+                            </label>
+                        </div>
+                        <h3>Acréscimos</h3>
+                        <div class="acrescimos">
+                            <label class="opcao">
+                                <input type="checkbox" id="embalagem">
+                                <span>Embalagem para levar (+R$ 2,00)</span>
+                            </label>
+                            <label class="opcao">
+                                <input type="checkbox" id="catchup">
+                                <span>Catchup (+R$ 1,00)</span>
+                            </label>
+                            <label class="opcao">
+                                <input type="checkbox" id="maionese">
+                                <span>Maionese (+R$ 1,00)</span>
+                            </label>
+                            <label class="opcao">
+                                <input type="checkbox" id="molho-especial">
+                                <span>Molho Especial (+R$ 2,00)</span>
+                            </label>
+                            <label class="opcao">
+                                <input type="checkbox" id="batata-frita">
+                                <span>Batata Frita (+R$ 15,90)</span>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="quantidade">
+                        <h3>Quantidade</h3>
+                        <div class="controles-quantidade">
+                            <button id="btn-diminuir">-</button>
+                            <input type="number" id="quantidade" min="1" value="1">
+                            <button id="btn-aumentar">+</button>
+                        </div>
+                    </div>
+                    <div class="total">
+                        <h2>Total: R$ <span id="valor-total-pedido">0,00</span></h2>
+                        <div class="botoes">
+                            <button id="btn-continuar-pedindo" class="acao-secundaria">Continuar Pedindo</button>
+                            <button id="btn-confirmar-pedido">Confirmar Pedido</button>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+
+        <!-- Tela de Pedido Confirmado -->
+        <div id="pedido-confirmado" class="tela">
+            <header>
+                <h1>Pedido Confirmado!</h1>
+            </header>
+            <main>
+                <div class="bloco">
+                    <div class="mensagem-confirmacao">
+                        <div class="icone-sucesso">✓</div>
+                        <h2>Seu pedido #<span id="numero-pedido">000</span> está sendo feito!</h2>
+                        <p>Te avisaremos quando estiver pronto!</p>
+                        <button id="btn-voltar-cardapio-confirmado" class="acao-secundaria">Voltar ao Cardápio</button>
+                    </div>
+                </div>
+            </main>
+        </div>
     </div>
 
     <script src="js/produtos.js"></script>
     <script src="js/pagamento.js"></script>
     <script src="js/app.js"></script>
+    <script src="js/main.js"></script>
 </body>
 </html> 
