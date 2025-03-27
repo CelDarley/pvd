@@ -96,9 +96,15 @@ class SistemaPedidos {
         });
 
         // Evento do botão continuar pedindo
-        document.getElementById('btn-continuar-pedindo')?.addEventListener('click', () => {
-            this.mostrarTela('cardapio');
-        });
+        const btnContinuarPedindo = document.getElementById('btn-continuar-pedindo');
+        if (btnContinuarPedindo) {
+            btnContinuarPedindo.addEventListener('click', () => {
+                console.log('Botão continuar pedindo clicado');
+                this.mostrarTela('cardapio');
+            });
+        } else {
+            console.log('Botão continuar pedindo não encontrado');
+        }
 
         // Evento do botão voltar ao cardápio após confirmação
         document.getElementById('btn-voltar-cardapio-confirmado')?.addEventListener('click', () => {
@@ -186,6 +192,11 @@ class SistemaPedidos {
             setTimeout(() => {
                 this.mostrarTela('cardapio');
             }, 3000);
+        });
+
+        // Evento do botão voltar ao cardápio na tela de confirmação
+        document.getElementById('btn-voltar-confirmacao')?.addEventListener('click', () => {
+            this.mostrarTela('cardapio');
         });
     }
 
@@ -470,10 +481,16 @@ class SistemaPedidos {
     }
 
     mostrarTela(id) {
+        // Remove a classe ativo de todas as telas
         document.querySelectorAll('.tela').forEach(tela => {
             tela.classList.remove('ativo');
         });
-        document.getElementById(id).classList.add('ativo');
+        
+        // Adiciona a classe ativo na tela desejada
+        const telaDesejada = document.getElementById(id);
+        if (telaDesejada) {
+            telaDesejada.classList.add('ativo');
+        }
     }
 
     confirmarCelular() {
