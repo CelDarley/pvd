@@ -16,9 +16,9 @@
         <div id="inicial" class="tela ativo">
             <div class="tela-inicial-conteudo">
                 <img src="img/logo_veredas.png" alt="Logo Veredas" class="logo-inicial">
-                <h1 class="titulo-bem-vindo">Bem-vindo ao Restaurante Veredas</h1>
+                <h1 class="titulo-bem-vindo">Aproxime o cartão para ver cardápio</h1>
                 <div class="animacao-cartao">
-                    <p class="texto-animado">Aproxime seu cartão para acesso ao cardápio</p>
+                    <p class="texto-animado">Aguardando leitura do cartão...</p>
                 </div>
             </div>
         </div>
@@ -28,37 +28,57 @@
             <header>
                 <div class="header-botoes">
                     <div class="header-titulo">
-                        <h1>Cardápio</h1>
-                        <span class="numero-mesa">Mesa 001</span>
+                        <h1>Cardápios</h1>
+                        <span class="numero-mesa">Mesa 002</span>
                     </div>
                     <div class="botoes-header">
-                        <button id="btn-ver-conta" class="icone-compras">Ver conta - Mesa 001</button>
+                        <button id="btn-ver-conta" class="icone-compras">Ver conta - Mesa 002</button>
                     </div>
                 </div>
             </header>
             <main>
-                <div class="grid-2" id="lista-produtos">
-                    <!-- Seção de Sanduíches -->
-                    <div class="secao-produtos">
-                        <h2 class="titulo-secao">Sanduíches</h2>
-                        <div class="produtos-grid" id="sanduiches">
-                            <!-- Produtos serão inseridos via JavaScript -->
+                <div class="grid-2">
+                    <!-- Coluna da Esquerda - Pedido em Elaboração -->
+                    <div class="coluna-pedido">
+                        <h2 class="titulo-secao">Pedido em Elaboração</h2>
+                        <div class="pedido-em-elaboracao">
+                            <div class="mensagem-inicial">
+                                <p>Nenhum pedido iniciado</p>
+                            </div>
+                            <div class="status-pedido" style="display: none;">
+                                <!-- Status do pedido será inserido via JavaScript -->
+                            </div>
+                            <div class="itens-pedido" style="display: none;">
+                                <!-- Itens do pedido serão inseridos via JavaScript -->
+                            </div>
+                            <div class="total-pedido" style="display: none;">
+                                <h3>Total do Pedido: R$ <span id="valor-total-pedido">0,00</span></h3>
+                                <button id="btn-finalizar-pedido" class="btn-primario">Finalizar Pedido</button>
+                            </div>
                         </div>
                     </div>
 
-                    <!-- Seção de Bebidas -->
-                    <div class="secao-produtos">
-                        <h2 class="titulo-secao">Bebidas</h2>
-                        <div class="produtos-grid" id="bebidas">
-                            <!-- Produtos serão inseridos via JavaScript -->
+                    <!-- Coluna da Direita - Cardápio -->
+                    <div class="coluna-cardapio">
+                        <div class="secao-produtos">
+                            <h2 class="titulo-secao">Sanduíche</h2>
+                            <div class="produtos-grid" id="sanduiches">
+                                <!-- Produtos serão inseridos via JavaScript -->
+                            </div>
                         </div>
-                    </div>
 
-                    <!-- Seção de Sobremesas -->
-                    <div class="secao-produtos">
-                        <h2 class="titulo-secao">Sobremesas</h2>
-                        <div class="produtos-grid" id="sobremesas">
-                            <!-- Produtos serão inseridos via JavaScript -->
+                        <div class="secao-produtos">
+                            <h2 class="titulo-secao">Bebidas</h2>
+                            <div class="produtos-grid" id="bebidas">
+                                <!-- Produtos serão inseridos via JavaScript -->
+                            </div>
+                        </div>
+
+                        <div class="secao-produtos">
+                            <h2 class="titulo-secao">Sobremesas</h2>
+                            <div class="produtos-grid" id="sobremesas">
+                                <!-- Produtos serão inseridos via JavaScript -->
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -155,7 +175,7 @@
                             </div>
                         </div>
                         <div class="total-pagamento">
-                            <h2>Total a Pagar: R$ <span id="valor-total-cartao">0,00</span></h2>
+                            <h2>Valor Pago: R$ <span id="valor-total-cartao">25.90</span></h2>
                         </div>
                         <div class="opcoes-recebimento">
                             <label class="checkbox-container">
@@ -165,8 +185,7 @@
                             </label>
                         </div>
                         <div class="botoes">
-                            <button id="btn-confirmar-pagamento">Confirmar Pagamento</button>
-                            <button id="btn-cancelar-pagamento" class="acao-secundaria">Cancelar</button>
+                            <button id="btn-voltar-cardapio-confirmado" class="btn-primario">Voltar ao Cardápio</button>
                         </div>
                     </div>
                 </div>
@@ -229,54 +248,21 @@
                         <div class="produto-imagem" id="imagem-produto-selecionado"></div>
                         <div class="detalhes-produto">
                             <h2 id="nome-produto-selecionado"></h2>
-                            <div class="descricao-quantidade">
-                                <p id="descricao-produto-selecionado"></p>
-                                <div class="quantidade-produto">
-                                    <div class="controles-quantidade">
-                                        <button class="btn-quantidade" data-acao="diminuir">-</button>
-                                        <input type="number" min="1" value="1" class="input-quantidade">
-                                        <button class="btn-quantidade" data-acao="aumentar">+</button>
-                                    </div>
-                                </div>
+                            <p id="descricao-produto-selecionado"></p>
+                            <div class="preco-produto">
+                                <p>Preço unitário: R$ <span id="preco-produto-selecionado">0,00</span></p>
+                                <p>Total: R$ <span id="valor-total-produto">0,00</span></p>
                             </div>
-                            <div class="preco">R$ <span id="preco-produto-selecionado">0,00</span></div>
                         </div>
                     </div>
-                    <div class="opcoes-produto">
-                        <h3>Opções</h3>
-                        <div class="lista-opcoes">
-                            <label class="opcao">
-                                <input type="checkbox" name="opcao" value="embalagem">
-                                <span>Embalagem para levar (+ R$ 2,00)</span>
-                            </label>
-                            <div class="acrescimos">
-                                <h4>Acréscimos</h4>
-                                <label class="opcao">
-                                    <input type="checkbox" name="opcao" value="catchup">
-                                    <span>Catchup (+ R$ 1,00)</span>
-                                </label>
-                                <label class="opcao">
-                                    <input type="checkbox" name="opcao" value="maionese">
-                                    <span>Maionese (+ R$ 1,00)</span>
-                                </label>
-                                <label class="opcao">
-                                    <input type="checkbox" name="opcao" value="molho-especial">
-                                    <span>Molho Especial (+ R$ 2,00)</span>
-                                </label>
-                            </div>
-                            <label class="opcao">
-                                <input type="checkbox" name="opcao" value="batata-frita">
-                                <span>Acréscimo de Batata Frita (+ R$ 15,90)</span>
-                            </label>
-                        </div>
+                    <div class="quantidade">
+                        <button class="btn-quantidade" data-acao="diminuir">-</button>
+                        <input type="number" class="input-quantidade" value="1" min="1">
+                        <button class="btn-quantidade" data-acao="aumentar">+</button>
                     </div>
-                    <div class="total">
-                        <h2>Total: R$ <span id="valor-total-pedido">0,00</span></h2>
-                        <div class="botoes">
-                            <button id="btn-continuar-pedindo" class="acao-secundaria">Acrescentar itens</button>
-                            <button id="btn-acrescentar-conta" class="acao-secundaria">Acrescentar na Conta</button>
-                            <button id="btn-pagar-pedido">Pagar</button>
-                        </div>
+                    <div class="botoes">
+                        <button id="btn-adicionar-pedido" class="btn-primario">Adicionar ao Pedido</button>
+                        <button id="btn-voltar-confirmacao" class="btn-secundario">Voltar ao Cardápio</button>
                     </div>
                 </div>
             </main>
@@ -321,7 +307,7 @@
                         <div class="lista-opcoes">
                             <label class="opcao">
                                 <input type="checkbox" id="queijo-extra">
-                                <span>Queijo Extra</span>
+                                <span>Queijo Extra forte</span>
                             </label>
                             <label class="opcao">
                                 <input type="checkbox" id="bacon-extra">
@@ -371,8 +357,7 @@
                     <div class="total">
                         <h2>Total: R$ <span id="valor-total-pedido">0,00</span></h2>
                         <div class="botoes">
-                            <button id="btn-continuar-pedindo" class="acao-secundaria">Acrescentar itens</button>
-                            <button id="btn-confirmar-pedido">Confirmar Pedido</button>
+                            <button id="btn-adicionar-pedido" class="btn-primario">Adicionar ao Pedido</button>
                         </div>
                     </div>
                 </div>
@@ -394,6 +379,19 @@
                     </div>
                 </div>
             </main>
+        </div>
+
+        <!-- Modal de Confirmação -->
+        <div id="modal-confirmacao" class="modal" style="display: none;">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3>Pedido Confirmado</h3>
+                </div>
+                <div class="modal-body">
+                    <p>Pedido <span id="numero-pedido-modal">000</span> está sendo elaborado.</p>
+                    <p>Aguarde que informaremos quando estiver pronto.</p>
+                </div>
+            </div>
         </div>
     </div>
 

@@ -4,9 +4,19 @@ let sistemaPedidos = null;
 // Função para inicializar o sistema
 function inicializarSistema() {
     // Elementos da interface
-    const telaInicial = document.getElementById('tela-inicial');
+    const telaInicial = document.getElementById('inicial');
     const telaCardapio = document.getElementById('cardapio');
     const btnIrCardapio = document.getElementById('btn-ir-cardapio');
+
+    // Verifica se os elementos necessários existem
+    if (!telaInicial || !telaCardapio || !btnIrCardapio) {
+        console.error('Elementos necessários não encontrados:', {
+            telaInicial: !!telaInicial,
+            telaCardapio: !!telaCardapio,
+            btnIrCardapio: !!btnIrCardapio
+        });
+        return;
+    }
 
     // Função para ir ao cardápio
     function irParaCardapio() {
