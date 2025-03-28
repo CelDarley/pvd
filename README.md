@@ -47,4 +47,4 @@ git clone https://github.com/CelDarley/chop.git
 
 ## Contribuição
 
-Contribuições são bem-vindas! Sinta-se à vontade para abrir issues e pull requests. 
+Contribuições são bem-vindas! Sinta-se à vontade para abrir issues e pull requests. # chop
