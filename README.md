@@ -1,90 +1,50 @@
-# Sistema de Pedidos e Pagamentos
+# Sistema de Chops
 
-Sistema para gerenciamento de pedidos com suporte a pagamentos via PIX e cartão.
+Sistema para controle de pedidos e pagamento de chops em estabelecimentos.
 
 ## Funcionalidades
 
-- Cadastro de conta com ou sem número de telefone
-- Leitura de cartão/pulseira NFC
-- Seleção de produtos com opções personalizáveis
-- Pagamento via PIX ou cartão
-- Envio opcional do comprovante por celular
+- Cardápio digital de chops
+- Pagamento via cartão e PIX
+- Sistema de torneira inteligente
+- Interface responsiva e intuitiva
 
-## Tecnologias
+## Tecnologias Utilizadas
 
 - HTML5
 - CSS3
-- JavaScript
-- API de Pagamentos
-- Leitor NFC
+- JavaScript (Vanilla)
+- API de QR Code para PIX
 
-## Requisitos
+## Como Usar
 
-- Navegador web moderno com suporte a JavaScript ES6+
-- Conexão com internet para carregar recursos externos
-- Dispositivo com tela de 1024x1366 (tablet)
+1. Clique em um item do cardápio
+2. Escolha a forma de pagamento (Cartão ou PIX)
+3. Siga as instruções na tela para finalizar o pagamento
+4. Coloque o copo no local indicado
+5. Aproxime o copo da torneira quando quiser servir
+
+## Estrutura do Projeto
+
+```
+chop/
+├── css/
+│   ├── style.css
+│   └── thalamus.css
+├── js/
+│   └── app.js
+└── index.html
+```
 
 ## Instalação
 
-1. Clone ou faça download deste repositório
-2. Copie os arquivos para um servidor web
-3. Acesse o sistema através do navegador
-
-## Estrutura de Arquivos
-
-```
-totem/
-├── css/
-│   ├── thalamus.css    # Estilos base do sistema
-│   └── style.css       # Estilos específicos do sistema
-├── js/
-│   ├── app.js          # Lógica principal do sistema
-│   ├── produtos.js     # Dados dos produtos
-│   └── pagamento.js    # Simulação do gateway de pagamento
-└── index.html          # Interface principal
+1. Clone o repositório:
+```bash
+git clone https://github.com/CelDarley/chop.git
 ```
 
-## Configuração
+2. Abra o arquivo `index.html` em seu navegador
 
-### Produtos
-Para adicionar ou modificar produtos, edite o arquivo `js/produtos.js`. Cada produto deve seguir o formato:
+## Contribuição
 
-```javascript
-{
-    id: number,
-    nome: string,
-    descricao: string,
-    preco: number,
-    imagem: string,
-    categoria: string
-}
-```
-
-### Gateway de Pagamento
-O arquivo `js/pagamento.js` contém uma simulação do gateway de pagamento. Em um ambiente de produção, você deve:
-
-1. Substituir as funções de simulação por chamadas reais ao seu gateway
-2. Implementar a segurança necessária
-3. Configurar as credenciais do gateway
-
-## Uso
-
-1. Cliente visualiza o cardápio
-2. Seleciona os itens desejados
-3. Escolhe uma das opções:
-   - Pagar agora
-   - Abrir conta
-   - Pedir item na conta
-   - Fechar conta
-4. Segue as instruções na tela para completar a operação
-
-## Segurança
-
-- Em produção, implemente HTTPS
-- Configure CORS adequadamente
-- Implemente autenticação para operações sensíveis
-- Proteja as credenciais do gateway de pagamento
-
-## Suporte
-
-Para suporte ou dúvidas, entre em contato com o desenvolvedor do sistema. 
+Contribuições são bem-vindas! Sinta-se à vontade para abrir issues e pull requests. 
