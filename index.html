@@ -12,13 +12,29 @@
 </head>
 <body>
     <div class="container">
+        <div id="boas-vindas" class="tela ativo">
+            <header>
+                <div class="logo-container">
+                    <img src="img/logo_veredas.png" alt="Logo Veredas" class="logo">
+                </div>
+            </header>
+            <main>
+                <div class="central">
+                    <div class="bloco">
+                        <h1>Bem-vindos ao Restaurante Veredas</h1>
+                        <p>Aproxime o cartão para cardápio</p>
+                    </div>
+                </div>
+            </main>
+        </div>
+
         <!-- Tela de Cardápio -->
-        <div id="cardapio" class="tela ativo">
+        <div id="cardapio" class="tela">
             <header>
                 <div class="header-botoes">
                     <h1>Cardápio</h1>
                     <div class="botoes-header">
-                        <button id="btn-abrir-conta-cardapio" class="acao-secundaria">Abrir Conta</button>
+                        <button id="btn-fazer-pedido" class="acao-principal">Fazer pedido</button>
                         <button id="btn-ver-conta" class="icone-compras">Ver Conta</button>
                     </div>
                 </div>
@@ -112,26 +128,25 @@
                     <div class="bloco">
                         <div class="info-cartao">
                             <div class="bandeira-cartao">
-                                <img id="bandeira-cartao" src="" alt="Bandeira do Cartão">
+                                <img id="bandeira-cartao" src="img/bandeiras/mastercard.png" alt="Bandeira do cartão">
                             </div>
                             <div class="dados-cartao">
-                                <p>Cartão: <span id="numero-cartao">**** **** **** ****</span></p>
-                                <p>Titular: <span id="titular-cartao"></span></p>
+                                <div class="numero-cartao">**** **** **** 1234</div>
+                                <div class="titular-cartao">TITULAR DO CARTÃO</div>
+                                <div class="valor-total">Total pago: R$ <span id="valor-total-cartao">0,00</span></div>
                             </div>
                         </div>
-                        <div class="total-pagamento">
-                            <h2>Total a Pagar: R$ <span id="valor-total-cartao">0,00</span></h2>
-                        </div>
-                        <div class="opcoes-recebimento">
-                            <label class="checkbox-container">
+                        <div class="opcoes-pagamento">
+                            <label class="opcao-pagamento">
                                 <input type="checkbox" id="receber-conta-celular">
-                                <span class="checkmark"></span>
                                 Deseja receber a conta no celular
+                                <div id="campo-celular-cartao" style="display: none; margin-top: 10px;">
+                                    <input type="tel" id="celular-cartao" placeholder="Digite seu celular" pattern="[0-9]{2}[0-9]{5}[0-9]{4}">
+                                </div>
                             </label>
                         </div>
                         <div class="botoes">
-                            <button id="btn-confirmar-pagamento">Confirmar Pagamento</button>
-                            <button id="btn-cancelar-pagamento" class="acao-secundaria">Cancelar</button>
+                            <button id="btn-confirmar-pagamento" class="acao-principal">Finalizar</button>
                         </div>
                     </div>
                 </div>
@@ -173,6 +188,15 @@
                             <input type="checkbox" id="receber-conta-celular-pix">
                             <label for="receber-conta-celular-pix">Deseja receber a conta no celular?</label>
                         </div>
+                    </div>
+                    <div class="opcoes-pagamento">
+                        <label class="opcao-pagamento">
+                            <input type="checkbox" id="receber-conta-celular-pix">
+                            Deseja receber a conta no celular
+                            <div id="campo-celular-pix" style="display: none; margin-top: 10px;">
+                                <input type="tel" id="celular-pix" placeholder="Digite seu celular" pattern="[0-9]{2}[0-9]{5}[0-9]{4}">
+                            </div>
+                        </label>
                     </div>
                     <div class="botoes">
                         <button id="btn-confirmar-pix" class="acao-principal">Confirmar</button>
@@ -268,9 +292,8 @@
                     <div class="total">
                         <h2>Total: R$ <span id="valor-total-pedido">0,00</span></h2>
                         <div class="botoes">
-                            <button id="btn-continuar-pedindo" class="acao-secundaria">Continuar Pedindo</button>
-                            <button id="btn-acrescentar-conta" class="acao-secundaria">Acrescentar na Conta</button>
-                            <button id="btn-pagar-pedido">Pagar</button>
+                            <button id="btn-continuar-pedindo" class="acao-secundaria">Voltar</button>
+                            <button id="btn-acrescentar-item" class="acao-principal">Acrescentar este item ao pedido</button>
                         </div>
                     </div>
                 </div>
@@ -294,6 +317,22 @@
                 </div>
             </main>
         </div>
+
+        <!-- Tela de aviso de pedido em elaboração -->
+        <div id="pedido-elaboracao" class="tela">
+            <div class="conteudo">
+                <div class="mensagem-elaboracao">
+                    <h2>Pedido em Elaboração</h2>
+                    <p>Seu pedido <span id="numero-pedido"></span> já está sendo elaborado.</p>
+                    <p>Te avisaremos quando estiver pronto!</p>
+                    <div class="botoes">
+                        <button id="btn-voltar-cardapio-elaboracao" class="acao-principal">Voltar ao cardápio</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tela de confirmação de pagamento -->
     </div>
 
     <script src="js/produtos.js"></script>

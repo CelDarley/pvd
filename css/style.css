@@ -2,18 +2,99 @@
 
 .tela {
     display: none;
-    height: 100vh;
-    width: 100vw;
+    min-height: 100vh;
+    width: 100%;
     max-width: 1024px;
     margin: 0 auto;
     background: var(--cor-bg);
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 0 var(--margem);
 }
 
 .tela.ativo {
     display: block;
 }
 
+.container {
+    position: relative;
+    width: 100%;
+    min-height: 100vh;
+}
+
+/* Estilos para a tela de boas-vindas */
+#boas-vindas {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+#boas-vindas .logo-container {
+    margin-bottom: 2rem;
+}
+
+#boas-vindas .logo {
+    max-width: 200px;
+    height: auto;
+}
+
+#boas-vindas h1 {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+    color: var(--cor-primaria);
+}
+
+#boas-vindas p {
+    font-size: 1.2rem;
+    color: var(--cor-fonte);
+}
+
 /* Estilos para o cardápio */
+main {
+    height: calc(100vh - 80px); /* Altura total menos o header */
+    overflow-y: auto;
+    padding-bottom: var(--margem);
+    scrollbar-width: thin;
+    scrollbar-color: var(--cor-primaria) var(--cor-cinza);
+}
+
+.categoria-produtos {
+    margin-bottom: 2rem;
+    width: 100%;
+}
+
+.titulo-categoria {
+    color: var(--cor-primaria);
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid var(--cor-primaria-fraca);
+}
+
+.grid-2 {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--margem);
+    width: 100%;
+    padding-bottom: var(--margem);
+}
+
+@media screen and (min-width: 768px) {
+    .grid-2 {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+.grid-produtos {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 1rem;
+    width: 100%;
+}
+
 .produto {
     background: var(--cor-bg);
     border-radius: 12px;
@@ -21,6 +102,8 @@
     overflow: hidden;
     transition: box-shadow 0.2s ease-in-out;
     cursor: pointer;
+    width: 100%;
+    border: 1px solid var(--cor-separador);
 }
 
 .produto:hover {
@@ -209,11 +292,12 @@ header .icone-compras {
     justify-content: space-between;
     align-items: center;
     width: 100%;
+    padding: 0 var(--margem);
 }
 
 .header-botoes h1 {
     margin: 0;
-    text-align: left;
+    font-size: 1.5rem;
 }
 
 .header-botoes button {
@@ -338,7 +422,7 @@ header .icone-compras {
 
 .botoes-header {
     display: flex;
-    gap: var(--margem);
+    gap: 1rem;
     align-items: center;
 }
 
@@ -356,6 +440,21 @@ header .icone-compras {
 .botoes-header button.acao-secundaria:hover {
     background: var(--cor-primaria);
     color: var(--cor-bg);
+}
+
+#btn-fazer-pedido {
+    padding: 0.5rem 1.5rem;
+    font-size: 1rem;
+    background: var(--cor-primaria);
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+#btn-fazer-pedido:hover {
+    background: var(--cor-primaria-hover);
 }
 
 .info-cartao {
@@ -386,12 +485,37 @@ header .icone-compras {
 }
 
 .dados-cartao {
-    flex: 1;
+    background: var(--cor-fundo);
+    padding: 20px;
+    border-radius: 8px;
+    margin: 20px 0;
+    text-align: center;
 }
 
-.dados-cartao p {
-    margin: 0;
-    line-height: 1.5;
+.dados-cartao img {
+    width: 80px;
+    margin-bottom: 15px;
+}
+
+.dados-cartao .numero-cartao {
+    font-size: 1.5rem;
+    margin: 10px 0;
+    color: var(--cor-fonte);
+}
+
+.dados-cartao .titular-cartao {
+    font-size: 1.2rem;
+    color: var(--cor-fonte);
+    margin-bottom: 15px;
+}
+
+.dados-cartao .valor-total {
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: var(--cor-primaria);
+    margin-top: 15px;
+    padding-top: 15px;
+    border-top: 1px solid var(--cor-borda);
 }
 
 .total-pagamento {
@@ -417,4 +541,116 @@ header .icone-compras {
     width: 20px;
     height: 20px;
     cursor: pointer;
+}
+
+/* Estilos para a barra de rolagem */
+main::-webkit-scrollbar {
+    width: 8px;
+}
+
+main::-webkit-scrollbar-track {
+    background: var(--cor-cinza);
+    border-radius: 4px;
+}
+
+main::-webkit-scrollbar-thumb {
+    background: var(--cor-primaria);
+    border-radius: 4px;
+}
+
+main::-webkit-scrollbar-thumb:hover {
+    background: var(--cor-primaria-forte);
+}
+
+.mensagem-vazia {
+    text-align: center;
+    padding: var(--margem);
+    color: var(--cor-fonte-fraca);
+    font-style: italic;
+}
+
+#campo-celular-cartao input,
+#campo-celular-pix input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid var(--cor-borda);
+    border-radius: 4px;
+    font-size: 16px;
+    margin-top: 5px;
+}
+
+#campo-celular-cartao input:focus,
+#campo-celular-pix input:focus {
+    outline: none;
+    border-color: var(--cor-primaria);
+    box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
+}
+
+.opcoes-pagamento {
+    margin: 20px 0;
+    padding: 15px;
+    background: var(--cor-fundo);
+    border-radius: 8px;
+}
+
+.opcao-pagamento {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    cursor: pointer;
+}
+
+.opcao-pagamento input[type="checkbox"] {
+    margin-right: 10px;
+}
+
+.mensagem-elaboracao {
+    text-align: center;
+    padding: var(--margem);
+    background: var(--cor-fundo);
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    max-width: 600px;
+    margin: 2rem auto;
+}
+
+.mensagem-elaboracao h2 {
+    color: var(--cor-primaria);
+    margin-bottom: 20px;
+    font-size: 2rem;
+}
+
+.mensagem-elaboracao p {
+    margin: 15px 0;
+    font-size: 1.5rem;
+    color: var(--cor-fonte);
+    line-height: 1.5;
+}
+
+#numero-pedido {
+    font-weight: bold;
+    color: var(--cor-primaria);
+    font-size: 3rem;
+    display: block;
+    margin: 20px 0;
+}
+
+#pedido-elaboracao .botoes {
+    margin-top: 2rem;
+}
+
+#pedido-elaboracao .botoes button {
+    padding: 1rem 2rem;
+    font-size: 1.2rem;
+    width: 100%;
+}
+
+#confirmacao-cartao .botoes {
+    margin-top: 2rem;
+}
+
+#confirmacao-cartao .botoes button {
+    width: 100%;
+    padding: 1rem;
+    font-size: 1.2rem;
 } 
