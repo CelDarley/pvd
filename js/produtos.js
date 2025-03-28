@@ -6,10 +6,10 @@ const produtos = [
         preco: 25.90,
         imagem: `<svg viewBox="0 0 300 200" xmlns="http://www.w3.org/2000/svg">
             <rect width="300" height="200" fill="#f5f5f5"/>
-            <circle cx="150" cy="80" r="40" fill="#8B4513"/>
-            <circle cx="150" cy="80" r="35" fill="#DEB887"/>
-            <circle cx="150" cy="80" r="30" fill="#FFA07A"/>
-            <text x="150" y="160" text-anchor="middle" fill="#333" font-size="16">X-Burger</text>
+            <circle cx="150" cy="100" r="40" fill="#8B4513"/>
+            <circle cx="150" cy="100" r="35" fill="#DEB887"/>
+            <circle cx="150" cy="100" r="30" fill="#FFA07A"/>
+            <text x="150" y="180" text-anchor="middle" fill="#333" font-size="16">X-Burger</text>
         </svg>`,
         categoria: "Hambúrgueres"
     },
@@ -20,29 +20,27 @@ const produtos = [
         preco: 29.90,
         imagem: `<svg viewBox="0 0 300 200" xmlns="http://www.w3.org/2000/svg">
             <rect width="300" height="200" fill="#f5f5f5"/>
-            <circle cx="150" cy="80" r="40" fill="#8B4513"/>
-            <circle cx="150" cy="80" r="35" fill="#DEB887"/>
-            <circle cx="150" cy="80" r="30" fill="#FFA07A"/>
-            <path d="M120,80 L180,80" stroke="#8B0000" stroke-width="8"/>
-            <text x="150" y="160" text-anchor="middle" fill="#333" font-size="16">X-Bacon</text>
+            <circle cx="150" cy="100" r="40" fill="#8B4513"/>
+            <circle cx="150" cy="100" r="35" fill="#DEB887"/>
+            <circle cx="150" cy="100" r="30" fill="#FFA07A"/>
+            <path d="M120,100 L180,100" stroke="#8B0000" stroke-width="8"/>
+            <text x="150" y="180" text-anchor="middle" fill="#333" font-size="16">X-Bacon</text>
         </svg>`,
         categoria: "Hambúrgueres"
     },
     {
         id: 3,
-        nome: "X-Tudo",
-        descricao: "Hambúrguer com queijo, bacon, ovo, alface, tomate e molho especial",
-        preco: 32.90,
+        nome: "Batata Frita",
+        descricao: "Porção de batatas fritas crocantes",
+        preco: 15.90,
         imagem: `<svg viewBox="0 0 300 200" xmlns="http://www.w3.org/2000/svg">
             <rect width="300" height="200" fill="#f5f5f5"/>
-            <circle cx="150" cy="80" r="40" fill="#8B4513"/>
-            <circle cx="150" cy="80" r="35" fill="#DEB887"/>
-            <circle cx="150" cy="80" r="30" fill="#FFA07A"/>
-            <path d="M120,80 L180,80" stroke="#8B0000" stroke-width="8"/>
-            <circle cx="150" cy="80" r="15" fill="#FFD700"/>
-            <text x="150" y="160" text-anchor="middle" fill="#333" font-size="16">X-Tudo</text>
+            <rect x="100" y="80" width="20" height="60" fill="#FFD700"/>
+            <rect x="130" y="60" width="20" height="80" fill="#FFD700"/>
+            <rect x="160" y="70" width="20" height="70" fill="#FFD700"/>
+            <text x="150" y="180" text-anchor="middle" fill="#333" font-size="16">Batata Frita</text>
         </svg>`,
-        categoria: "Hambúrgueres"
+        categoria: "Acompanhamentos"
     },
     {
         id: 4,
@@ -51,7 +49,8 @@ const produtos = [
         preco: 6.90,
         imagem: `<svg viewBox="0 0 300 200" xmlns="http://www.w3.org/2000/svg">
             <rect width="300" height="200" fill="#f5f5f5"/>
-            <rect x="120" y="40" width="60" height="120" fill="#FF0000"/>
+            <rect x="130" y="40" width="40" height="120" fill="#C0C0C0"/>
+            <circle cx="150" cy="100" r="15" fill="#FF0000"/>
             <text x="150" y="180" text-anchor="middle" fill="#333" font-size="16">Refrigerante</text>
         </svg>`,
         categoria: "Bebidas"
@@ -63,59 +62,23 @@ const produtos = [
         preco: 4.90,
         imagem: `<svg viewBox="0 0 300 200" xmlns="http://www.w3.org/2000/svg">
             <rect width="300" height="200" fill="#f5f5f5"/>
-            <rect x="120" y="40" width="60" height="120" fill="#87CEEB"/>
+            <path d="M140,40 L160,40 L150,160 Z" fill="#87CEEB"/>
+            <path d="M145,50 L155,50 L150,150 Z" fill="#ADD8E6"/>
             <text x="150" y="180" text-anchor="middle" fill="#333" font-size="16">Água Mineral</text>
         </svg>`,
         categoria: "Bebidas"
     },
     {
         id: 6,
-        nome: "Suco Natural",
-        descricao: "Copo 300ml",
-        preco: 8.90,
-        imagem: `<svg viewBox="0 0 300 200" xmlns="http://www.w3.org/2000/svg">
-            <rect width="300" height="200" fill="#f5f5f5"/>
-            <rect x="120" y="40" width="60" height="120" fill="#FFA500"/>
-            <text x="150" y="180" text-anchor="middle" fill="#333" font-size="16">Suco Natural</text>
-        </svg>`,
-        categoria: "Bebidas"
-    },
-    {
-        id: 7,
         nome: "Sorvete",
         descricao: "Copo com 2 bolas",
         preco: 12.90,
         imagem: `<svg viewBox="0 0 300 200" xmlns="http://www.w3.org/2000/svg">
             <rect width="300" height="200" fill="#f5f5f5"/>
-            <circle cx="150" cy="100" r="30" fill="#FFB6C1"/>
-            <circle cx="150" cy="70" r="25" fill="#87CEEB"/>
+            <circle cx="150" cy="80" r="30" fill="#FFB6C1"/>
+            <circle cx="150" cy="120" r="35" fill="#FFC0CB"/>
+            <rect x="140" y="150" width="20" height="40" fill="#C0C0C0"/>
             <text x="150" y="180" text-anchor="middle" fill="#333" font-size="16">Sorvete</text>
-        </svg>`,
-        categoria: "Sobremesas"
-    },
-    {
-        id: 8,
-        nome: "Pudim",
-        descricao: "Pudim de leite com calda",
-        preco: 9.90,
-        imagem: `<svg viewBox="0 0 300 200" xmlns="http://www.w3.org/2000/svg">
-            <rect width="300" height="200" fill="#f5f5f5"/>
-            <circle cx="150" cy="100" r="40" fill="#DEB887"/>
-            <path d="M110,100 Q150,140 190,100" stroke="#8B4513" stroke-width="4" fill="none"/>
-            <text x="150" y="180" text-anchor="middle" fill="#333" font-size="16">Pudim</text>
-        </svg>`,
-        categoria: "Sobremesas"
-    },
-    {
-        id: 9,
-        nome: "Milk Shake",
-        descricao: "Milk shake de chocolate",
-        preco: 15.90,
-        imagem: `<svg viewBox="0 0 300 200" xmlns="http://www.w3.org/2000/svg">
-            <rect width="300" height="200" fill="#f5f5f5"/>
-            <rect x="120" y="40" width="60" height="120" fill="#8B4513"/>
-            <circle cx="150" cy="40" r="30" fill="#8B4513"/>
-            <text x="150" y="180" text-anchor="middle" fill="#333" font-size="16">Milk Shake</text>
         </svg>`,
         categoria: "Sobremesas"
     }
